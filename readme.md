@@ -21,3 +21,7 @@
         label,
     ).Plot("x", "y", "x/y", "testing.png")
 ```
+
+will create 
+
+![testing](https://user-images.githubusercontent.com/7218861/26939121-495119b4-4c44-11e7-9d87-b797aee5ffc8.png)
