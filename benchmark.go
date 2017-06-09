@@ -20,6 +20,7 @@ type point struct {
 	y float64
 }
 
+//PerfPlotter returns a new performance instance
 func PerfPlotter() *performance {
 
 	perf := &performance{
@@ -30,6 +31,7 @@ func PerfPlotter() *performance {
 	return perf
 }
 
+//Analyze runs the analyzes of a function
 func (perf *performance) Analyze(
 	callback func(size int),
 	max int, increment int,
@@ -37,10 +39,13 @@ func (perf *performance) Analyze(
 
 	pts := make([]*point, max/increment)
 
+	//Each test
 	for i := 0; i < max; i += increment {
 
+		//the times
 		times := make([]float64, retries)
 
+		//execute it retries time
 		for r := 0; r < retries; r++ {
 			start := time.Now()
 			callback(i)
@@ -50,6 +55,7 @@ func (perf *performance) Analyze(
 		sort.Float64s(times)
 		pts[i] = &point{
 			x: float64(i),
+			//median of the times
 			y: float64(times[len(times)/2]),
 		}
 	}
@@ -60,8 +66,10 @@ func (perf *performance) Analyze(
 	return perf
 }
 
+//Plot creates the png plots
 func (perf *performance) Plot(xLabel string, yLabel string,
-	legend string, path string) {
+	legend string, path string) *performance {
+
 	p, err := plot.New()
 	if err != nil {
 		panic(err)
@@ -94,4 +102,10 @@ func (perf *performance) Plot(xLabel string, yLabel string,
 	if err := p.Save(4*vg.Inch, 4*vg.Inch, path); err != nil {
 		panic(err)
 	}
+
+	//Cleanup in case we go for a new graph
+	perf.lines = [][]*point{}
+	perf.labels = []string{}
+
+	return perf
 }
