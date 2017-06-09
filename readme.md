@@ -22,6 +22,7 @@ func main(){
         increment,
         retries,
         label,
+<<<<<<< HEAD
     ).
     Analyze(
         anotherFunction,
@@ -41,3 +42,11 @@ func anotherFunction(datasetSize int){
 
 }
 ```
+=======
+    ).Plot("x", "y", "x/y", "testing.png")
+```
+
+will create 
+
+![testing](https://user-images.githubusercontent.com/7218861/26939121-495119b4-4c44-11e7-9d87-b797aee5ffc8.png)
+>>>>>>> 77f5c85711fec7a69a8d430c9d0ebe04dff7d292
