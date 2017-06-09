@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/MathieuNls/gripper.png)](https://travis-ci.org/MathieuNls/gripper)
+[![GoDoc](https://godoc.org/github.com/MathieuNls/gripper?status.png)](https://godoc.org/github.com/MathieuNls/gripper)
+[![codecov](https://codecov.io/gh/MathieuNls/gripper/branch/master/graph/badge.svg)](https://codecov.io/gh/MathieuNls/gripper)
+
 # Go Performances Plotter
 
 ```go
