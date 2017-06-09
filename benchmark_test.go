@@ -23,9 +23,14 @@ func TestAnalyze(t *testing.T) {
 		func(size int) {
 
 		}, 10, 1, 10, "nothing",
+	).Analyze(
+		func(size int) {
+
+		}, 10, 1, 10, "more nothing",
 	)
-	if p == nil || len(p.lines) != 1 || len(p.lines[0]) != 10 ||
-		len(p.labels) != 1 || p.labels[0] != "nothing" {
+	if p == nil || len(p.lines) != 2 || len(p.lines[0]) != 10 ||
+		len(p.labels) != 2 || p.labels[0] != "nothing" ||
+		len(p.lines[1]) != 10 || p.labels[1] != "more nothing" {
 		t.Error("Expected plotter got ", p)
 	}
 

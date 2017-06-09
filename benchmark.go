@@ -71,6 +71,8 @@ func (perf *performance) Plot(xLabel string, yLabel string,
 	p.X.Label.Text = xLabel
 	p.Y.Label.Text = yLabel
 
+	plotLines := []interface{}{}
+
 	for i := 0; i < len(perf.lines); i++ {
 
 		pts := make(plotter.XYs, len(perf.lines[i]))
@@ -80,10 +82,13 @@ func (perf *performance) Plot(xLabel string, yLabel string,
 			pts[j].Y = perf.lines[i][j].y
 		}
 
-		err = plotutil.AddLinePoints(p, perf.labels[i], pts)
-		if err != nil {
-			panic(err)
-		}
+		plotLines = append(plotLines, perf.labels[i], pts)
+
+	}
+
+	err = plotutil.AddLinePoints(p, plotLines...)
+	if err != nil {
+		panic(err)
 	}
 
 	if err := p.Save(4*vg.Inch, 4*vg.Inch, path); err != nil {
