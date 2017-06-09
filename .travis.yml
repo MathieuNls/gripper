@@ -1,13 +1,10 @@
 language: go
 
 go:
-  - 1.7
-  - 1.8
   - tip
 
 script: 
-  - go build
-  - bash -c 'rm -f coverage.txt && go test -covermode=atomic && cat coverage.out >> coverage.txt && rm coverage.out'
+  - go test -covermode=atomic -coverprofile=coverage.txt'
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
