@@ -53,7 +53,7 @@ func (perf *performance) AnalyzeWithGeneratedData(
 		}
 
 		sort.Float64s(times)
-		pts[i] = &point{
+		pts[i/increment] = &point{
 			x: float64(i),
 			//median of the times
 			y: float64(times[len(times)/2]),
@@ -88,7 +88,7 @@ func (perf *performance) Analyze(
 		}
 
 		sort.Float64s(times)
-		pts[i] = &point{
+		pts[i/increment] = &point{
 			x: float64(i),
 			//median of the times
 			y: float64(times[len(times)/2]),
