@@ -23,8 +23,11 @@ func TestAnalyze(t *testing.T) {
 		func(size int) {
 
 		}, 10, 1, 10, "nothing",
-	).Analyze(
-		func(size int) {
+	).AnalyzeWithGeneratedData(
+		func(size int) []interface{} {
+			return nil
+		},
+		func(data []interface{}) {
 
 		}, 10, 1, 10, "more nothing",
 	)

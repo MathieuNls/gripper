@@ -20,6 +20,7 @@ func main(){
     label := "nothing"
 
     gripper.PerfPlotter().
+    //Simple function that takes care of everything
     Analyze(
         myFunctionToAnalyze,
         max,
@@ -27,7 +28,16 @@ func main(){
         retries,
         label,
     ).
-    Analyze(
+    //Here, we want to analyze anotherFunction but
+    //it requires data to be generated, struct to initialized
+    //and so on...
+    //The return of the first function will be sent to the second
+    //and, the timer will only accounts for anotherFunction execution 
+    //time and not the first function
+    AnalyzeWithGeneratedData(
+        func(size int) []interface{} {
+			return nil
+		},
         anotherFunction,
         max,
         increment,
@@ -41,7 +51,7 @@ func myFunctionToAnalyze(datasetSize int){
 
 }
 
-func anotherFunction(datasetSize int){
+func anotherFunction(data []interface{}){
 
 }
 ```

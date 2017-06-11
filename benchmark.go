@@ -31,6 +31,41 @@ func PerfPlotter() *performance {
 	return perf
 }
 
+func (perf *performance) AnalyzeWithGeneratedData(
+	generateData func(size int) []interface{},
+	callback func([]interface{}),
+	max int, increment int,
+	retries int, label string) *performance {
+
+	pts := make([]*point, max/increment)
+
+	//Each test
+	for i := 0; i < max; i += increment {
+
+		//the times
+		times := make([]float64, retries)
+		data := generateData(i)
+		//execute it retries time
+		for r := 0; r < retries; r++ {
+			start := time.Now()
+			callback(data)
+			times[r] = float64(time.Since(start).Nanoseconds())
+		}
+
+		sort.Float64s(times)
+		pts[i] = &point{
+			x: float64(i),
+			//median of the times
+			y: float64(times[len(times)/2]),
+		}
+	}
+
+	perf.lines = append(perf.lines, pts)
+	perf.labels = append(perf.labels, label)
+
+	return perf
+}
+
 //Analyze runs the analyzes of a function
 func (perf *performance) Analyze(
 	callback func(size int),
